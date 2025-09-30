@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>ELO</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .gif {
+      position: absolute;
+      width: 600px;
+      height: 500px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    const gifUrl = "https://i.ibb.co/LhC1njYc/5x30-5-Min-Day-workout-1-gif.gif";
+
+    function createMovingGif() {
+      const gif = document.createElement("img");
+      gif.src = gifUrl;
+      gif.className = "gif";
+      document.body.appendChild(gif);
+
+      let x = Math.random() * (window.innerWidth - 600);
+      let y = Math.random() * (window.innerHeight - 500);
+      let dx = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 2);
+      let dy = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random() * 2);
+
+      function move() {
+        const w = 600, h = 500;
+
+        if (x + dx + w > window.innerWidth || x + dx < 0) dx = -dx;
+        if (y + dy + h > window.innerHeight || y + dy < 0) dy = -dy;
+
+        x += dx;
+        y += dy;
+
+        gif.style.left = x + 'px';
+        gif.style.top = y + 'px';
+
+        requestAnimationFrame(move);
+      }
+
+      move();
+    }
+
+    // Первая гифка сразу
+    createMovingGif();
+
+    // Новая гифка каждую секунду
+    setInterval(createMovingGif, 1000);
+  </script>
+
+</body>
+</html>
